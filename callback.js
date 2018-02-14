@@ -87,9 +87,8 @@ f("dosta.je", "bilo")();
 
 (function (counta) {
     var sum = 0;
-    var newstr = ""
     for (var i = 0; i < counta.length; i++) {
-       
+        var newstr
         if (counta[i] == "a") {
             sum++;
         }
