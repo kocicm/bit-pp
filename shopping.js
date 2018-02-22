@@ -2,6 +2,7 @@
 
 (function () {
     console.log("Hi");
+
     // constructor function for product object
     function Product(name, price, expirationDate) {
         this.id = (function () {
@@ -63,7 +64,7 @@
             for (var i = 0; i < this.listOfProducts.length; i++) {
                 sum += this.listOfProducts[i].price;
             }
-            return sum;
+            return "Total: " + sum;
         }
     }
 
