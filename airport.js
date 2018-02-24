@@ -32,10 +32,11 @@
         this.listOfPassengers = [];
         this.getData = function () {
             var flightData = '';
+            var dataF = this.date.getDate() + "." + (1 + this.date.getMonth()) + "." + this.date.getFullYear();
             for (var i = 0; i < this.listOfPassengers.length; i++) {
                 flightData +=  this.listOfPassengers[i].getData();
                 
-            }return this.date + " " + this.relation + "\n" + flightData
+            }return "\t" + dataF + ", " + this.relation + "\n" + flightData
         }
         this.addPassenger = function (passenger) {
             this.listOfPassengers.push(passenger)
@@ -51,13 +52,14 @@
         this.getData = function () {
 
             var airportData = '';
+            var flightData1 = ""
             var numOfPassengers = 0;
             for (var i = 0; i < this.listOfFlights.length; i++) {
                 numOfPassengers += this.listOfFlights[i].listOfPassengers.length;
+                flightData1 = flightData1 + this.listOfFlights[i].getData() + "\n"
                 //flightData += this.listOfFlights[i].
             }
-            airportData = 'Airport: ' + this.name + ', total passengers: ' + numOfPassengers + '\n';
-            var flightData = 
+            airportData = 'Airport: ' + this.name + ', total passengers: ' + numOfPassengers + '\n' + flightData1;
             return airportData;
         }
     }
