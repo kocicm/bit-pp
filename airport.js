@@ -11,15 +11,26 @@
         }
     }
     function Seat(number, category) {
-
+        
         this.number = number || Math.floor(Math.random() * 90 + 10);
-        this.category = category || "e";
+        this.cat = category;
+
+        this.category = function () {
+            var catLong;
+            if (category == "b" || category == "B") {
+                catLong = "business"
+            } else {
+                catLong = 'economy'
+
+            } return catLong
+        }
         this.getData = function () {
-            return this.number + ", " + this.category.toUpperCase();
+            return this.number + ", " + this.category();
         }
     }
     function Passenger(name, surname, number, category) {
         this.person = new Person(name, surname);
+        this.category = category
         this.seat = new Seat(number, category);
         this.getData = function () {
             var passengerData = '\t\t' + this.seat.getData() + ", " + this.person.getData() + '\n';;
@@ -28,15 +39,54 @@
     }
     function Flight(relation, date) {
         this.relation = relation;
+        this.rn = function () {
+            var relationSplit = this.relation.split(" - ");
+            var relation1 = relationSplit[0];
+            var relation2 = relationSplit[1];
+            var index1;
+            for (var i = 0; i < relation1.length; i++) {
+                if (relation1[i].toUpperCase() != "A" && relation1[i].toUpperCase() != "E" && relation1[i].toUpperCase() != "U" && relation1[i].toUpperCase() != "O" && relation1[i].toUpperCase() != "I") {
+                    index1 = i;
+                }
+            }
+            var index2;
+            for (var i = 0; i < relation2.length; i++) {
+                if (relation2[i].toUpperCase() != "A" && relation2[i].toUpperCase() != "E" && relation2[i].toUpperCase() != "U" && relation2[i].toUpperCase() != "O" && relation2[i].toUpperCase() != "I") {
+                    index2 = i;
+                }
+            }
+
+            var rel1 = relation1[0] + relation1[index1]
+            var rel2 = relation2[0] + relation2[index2]
+            var relCut = rel1 + " - " + rel2;
+            return relCut;
+
+        };
         this.date = new Date(date);
         this.listOfPassengers = [];
+        // ovo ne radi!
+        // this.numOfbusiness = function () {
+        //     var count = 0;
+        //     console.log(count);
+        //     for (var i = 0; i < this.listOfPassengers.length; i++) {
+        //         if (this.listOfPassengers[i].category == "b") {
+        //             count++;
+        //             console.log(count);
+        //         }
+
+        //     }return count;
+        //     console.log(count);
+
+        // }
+        // var numOfbusiness = this.numOfbusiness();
+        // console.log(numOfbusiness);
         this.getData = function () {
             var flightData = '';
             var dataF = this.date.getDate() + "." + (1 + this.date.getMonth()) + "." + this.date.getFullYear();
             for (var i = 0; i < this.listOfPassengers.length; i++) {
-                flightData +=  this.listOfPassengers[i].getData();
-                
-            }return "\t" + dataF + ", " + this.relation + "\n" + flightData
+                flightData += this.listOfPassengers[i].getData();
+
+            } return "\t" + dataF + " " + this.rn().toUpperCase() + "\n" + flightData
         }
         this.addPassenger = function (passenger) {
             this.listOfPassengers.push(passenger)
@@ -99,3 +149,5 @@
 
 
 })();
+
+
