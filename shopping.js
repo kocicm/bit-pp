@@ -12,45 +12,26 @@
         this.name = name;
         this.price = price;
         this.expirationDate = expirationDate;
-        this.getInfo = function () {
-            var info = this.name[0].toUpperCase() + this.name[this.name.length - 1].toUpperCase() + this.id;
-            var info1 = this.name;
-            var info2 = this.price;
-            return (info + "," + info1 + "," + info2);
-
-        }
     }
-// creating two product objects
+    // modifying Product prototype and prototype chain
+    Product.prototype.getInfo = function () {
+        var info = this.name[0].toUpperCase() + this.name[this.name.length - 1].toUpperCase() + this.id;
+        var info1 = this.name;
+        var info2 = this.price;
+        return (info + "," + info1 + "," + info2);
+    };
+
+    // creating two product objects
     var coffee = new Product("Grand kafa", 102.45, new Date(2018, 6, 15));
     var sugar = new Product("secer", 50, new Date(2018, 7, 16));
 
-// construction function for shopping bag
+    // construction function for shopping bag
     function ShoppingBag() {
         // starting with empty shopping bag
         this.listOfProducts = [];
-        this.averagePrice = function () {
-            var sum = 0;
-            var average;
-            for (var i = 0; i < this.listOfProducts.length; i++) {
-                sum += this.listOfProducts[i].price;
-            }
-            average = sum / this.listOfProducts.length;
-            return average;
-        }
-        // finding most expensiv - method
-        this.getMostExpensive = function () {
-            var max = 0;
-            var maxIndex;
-            //finding index of most expensive product in list of product array
-            for (var i = 0; i < this.listOfProducts.length; i++) {
-                if (max < this.listOfProducts[i].price) {
-                    max = this.listOfProducts[i].price
-                    maxIndex = i;
-                }
-
-            } return this.listOfProducts[maxIndex].getInfo();
-        }
         
+        // finding most expensiv - method
+
         this.addProduct = function (product) {
             //checking expiration date and adding to list of product array if date is valid 
             if (new Date() < product.expirationDate) {
@@ -67,6 +48,32 @@
             return "Total: " + sum;
         }
     }
+
+
+    ShoppingBag.prototype.averagePrice = function () {
+        var sum = 0;
+        var average;
+        for (var i = 0; i < this.listOfProducts.length; i++) {
+            sum += this.listOfProducts[i].price;
+        }
+        average = sum / this.listOfProducts.length;
+        return average;
+    }
+
+    ShoppingBag.prototype.getMostExpensive = function () {
+        var max = 0;
+        var maxIndex;
+        //finding index of most expensive product in list of product array
+        for (var i = 0; i < this.listOfProducts.length; i++) {
+            if (max < this.listOfProducts[i].price) {
+                max = this.listOfProducts[i].price
+                maxIndex = i;
+            }
+
+        } return this.listOfProducts[maxIndex].getInfo();
+    }
+
+
 
     // payment card constructor
 
@@ -96,4 +103,6 @@
     }
     //calling function for objects
     checkoutAndBuy(shoppingOne, card1);
+
+    console.log(sugar);
 })();
